@@ -18,7 +18,7 @@
  *
  * 5. Use the colReorder Plugin to add the ability to reorder columns
  *
- * 6. The table should be able to scroll horizontal
+ * 6. The table should be able to scroll horizontal - this is not mandatory(leah note)
  *
  * 7. Use any other features you find interesting
  *
@@ -34,7 +34,19 @@
 
    $(function(){
 
-   	//code goes here
+     $(document).ready( function () {
+      $('#studentTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        "scrollX": true
+
+      });
+      } );
+
+    //code goes here
 
    })
 

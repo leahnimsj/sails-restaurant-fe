@@ -42,9 +42,128 @@
 
  (function(){
 
+   let searchURL;
+
    $(function(){
 
-    //code goes here
+     $("#updateStudentForm :input").prop("disabled", true);
+
+
+     $('#student_id').selectpicker({
+       style: 'btn-info',
+       size: 4,
+       liveSearch: true,
+       showTick: true,
+       tickIcon: 'glyphicon-user',
+       header: "Student search"
+      });
+
+     $("#student_id").change(function () {
+        $("#updateStudentForm :input").prop("disabled", false);
+
+        searchURL = $(this).find("option:selected").val();
+
+
+        $.get("http://localhost:1337/student/" + searchURL, function (data) {
+
+          console.log(data.first_name);
+
+          $.each(data, function(name, val){
+
+        // find the name attribute of each piece of data in your object
+            let el = $('[name="'+name+'"]')
+        // find the type of data
+            let type = el.attr('type');
+
+// set element equal to to the value that is coming back from the api
+            switch(type){
+              default:
+                el.val(val);
+              }
+
+          });
+
+        })
+
+      });
+
+
+      $("#updateStudentForm").validate({
+        errorClass: 'text-danger',
+        rules: {
+          // simple rule, converted to {required:true}
+          first_name: {
+            required: true,
+            minlength: 2
+          },
+          // compound rule
+          last_name: {
+            required: true,
+            minlength: 2
+          },
+
+          start_date: {
+            dateISO: true,
+            required: true
+          },
+
+          gpa: {
+            number: true
+          },
+
+          sat: {
+            range: [0,2400]
+          }
+
+
+        },
+        messages: {
+          first_name: {
+            required: "First name is required",
+            minlength: "Is your last name really only 2 letters?"
+          },
+          last_name: {
+            required: "Last name is required"
+          },
+          start_date: {
+            required: "Start date is required"
+          }
+
+        }
+      });
+
+
+      $('#updateStudentForm').submit(function () {
+        let updateString = $("#updateStudentForm").serialize();
+
+        $.ajax({
+              url: 'http://localhost:1337/student/' + searchURL,
+              type: 'PUT',
+              data: updateString,
+              success: function(result) {
+                alert("This record has been updated");
+              }
+            })
+
+
+
+      })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    })
 
