@@ -7,7 +7,7 @@
 
 var Client = require('node-rest-client').Client;
 var client = new Client();
-var endpoint = "http://localhost:1337/student"
+var endpoint = "http://localhost:1337/restaurant";
 
 module.exports = {
 
@@ -44,9 +44,10 @@ module.exports = {
    * `StudentController.read()`
    */
   read: function (req, res) {
-
     client.get(endpoint, function (data, response) {
-        return res.view('read', {students: data});
+        return res.view('read', {restaurants: data});
+        // return res.json(data);
+
     }).on('error', function (err) {
         return res.view('read', {error: { message: "There was an error getting the students"}});
     });
@@ -62,7 +63,7 @@ module.exports = {
     if(req.method != "POST"){
 
       client.get(endpoint, function (data, response) {
-        return res.view('update', {students: data});
+        return res.view('update', {restaurants: data});
       }).on('error', function (err) {
           return res.view('update', {error: { message: "There was an error getting the students"}});
       });
@@ -97,14 +98,14 @@ module.exports = {
     if(req.method != "POST"){
 
       client.get(endpoint, function (data, response) {
-        return res.view('delete', {students: data});
+        return res.view('delete', {restaurants: data});
       }).on('error', function (err) {
           return res.view('delete', {error: { message: "There was an error getting the students"}});
       });
 
     }else{
 
-      client.delete(endpoint + "/" + req.body.student_id, function (data, response) {
+      client.delete(endpoint + "/" + req.body.id, function (data, response) {
 
         if(response.statusCode != "200"){
             req.addFlash("error", data.message);

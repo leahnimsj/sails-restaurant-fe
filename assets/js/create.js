@@ -28,45 +28,49 @@
 
   $(function(){
 
-    $("#addStudentForm").validate({
+    $("#addRestaurantForm").validate({
       errorClass: 'text-danger',
       rules: {
         // simple rule, converted to {required:true}
-        first_name: {
+        restaurantName: {
           required: true,
           minlength: 2
         },
         // compound rule
-        last_name: {
+        cuisine: {
           required: true,
           minlength: 2
         },
 
-        start_date: {
-          dateISO: true,
+        expensiveRating: {
+          number: true,
+          required: true,
+          min: 1,
+          max: 5
+        },
+
+        locationNeighborhood: {
           required: true
         },
 
-        gpa: {
-          number: true
+        closeToHome: {
+          required: true
         },
 
-        sat: {
-          range: [0,2400]
+        website: {
+          url: true
         }
-
 
       },
       messages: {
-        first_name: {
-          required: "First name is required",
-          minlength: "Is your last name really only 2 letters?"
+        restaurantName: {
+          minlength: "Is the name really only 1 letter?"
         },
-        last_name: {
-          required: "Last name is required"
+        expensiveRating: {
+          number: "Please enter a number between 1 and 5"
         },
-        start_date: {
-          required: "Start date is required"
+        website: {
+          url: "C'mmon. I'm looking for a url!"
         }
 
       }

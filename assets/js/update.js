@@ -46,27 +46,26 @@
 
    $(function(){
 
-     $("#updateStudentForm :input").prop("disabled", true);
+     $("#updateRestaurantForm :input").prop("disabled", true);
 
 
-     $('#student_id').selectpicker({
+     $('#restaurant_id').selectpicker({
        style: 'btn-info',
        size: 4,
        liveSearch: true,
        showTick: true,
-       tickIcon: 'glyphicon-user',
-       header: "Student search"
+       tickIcon: 'glyphicon-star-empty',
+       header: "Restaurant search"
       });
 
-     $("#student_id").change(function () {
-        $("#updateStudentForm :input").prop("disabled", false);
+     $("#restaurant_id").change(function () {
+        $("#updateRestaurantForm :input").prop("disabled", false);
 
         searchURL = $(this).find("option:selected").val();
 
 
-        $.get("http://localhost:1337/student/" + searchURL, function (data) {
+        $.get("http://localhost:1337/restaurant/" + searchURL, function (data) {
 
-          console.log(data.first_name);
 
           $.each(data, function(name, val){
 
@@ -87,57 +86,59 @@
 
       });
 
-
-      $("#updateStudentForm").validate({
+      $("#updateRestaurantForm").validate({
         errorClass: 'text-danger',
         rules: {
           // simple rule, converted to {required:true}
-          first_name: {
+          restaurantName: {
             required: true,
             minlength: 2
           },
           // compound rule
-          last_name: {
+          cuisine: {
             required: true,
             minlength: 2
           },
 
-          start_date: {
-            dateISO: true,
+          expensiveRating: {
+            number: true,
+            required: true,
+            min: 1,
+            max: 5
+          },
+
+          locationNeighborhood: {
             required: true
           },
 
-          gpa: {
-            number: true
+          closeToHome: {
+            required: true
           },
 
-          sat: {
-            range: [0,2400]
+          website: {
+            url: true
           }
-
 
         },
         messages: {
-          first_name: {
-            required: "First name is required",
-            minlength: "Is your last name really only 2 letters?"
+          restaurantName: {
+            minlength: "Is the name really only 1 letter?"
           },
-          last_name: {
-            required: "Last name is required"
+          expensiveRating: {
+            number: "Please enter a number between 1 and 5"
           },
-          start_date: {
-            required: "Start date is required"
+          website: {
+            url: "C'mmon. I'm looking for a url!"
           }
 
         }
       });
 
-
-      $('#updateStudentForm').submit(function () {
-        let updateString = $("#updateStudentForm").serialize();
+      $('#updateRestaurantForm').submit(function () {
+        let updateString = $("#updateRestaurantForm").serialize();
 
         $.ajax({
-              url: 'http://localhost:1337/student/' + searchURL,
+              url: 'http://localhost:1337/restaurant/' + searchURL,
               type: 'PUT',
               data: updateString,
               success: function(result) {

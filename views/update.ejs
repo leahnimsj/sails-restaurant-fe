@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
     <li><a href="/">Home</a></li>
-    <li class="active">Edit Student</a></li>
+    <li class="active">Edit Restaurant</a></li>
 </ol>
 
 <br/>
@@ -8,12 +8,12 @@
 
 <form action="#" method="">
   <div class="form-group">
-    <label for="student_id">SELECT AN STUDENT TO UPDATE</label><br/>
-    <select id="student_id" name="student_id">
-    <% if(typeof students != "undefined" && students.length > 0){ %>
-      <% students.forEach(function(student){ %>
-        <option value="<%= student.student_id %>">
-          <%= student.last_name + ", " +  student.first_name %>
+    <label for="restaurant_id">SELECT A RESTAURANT TO UPDATE</label><br/>
+    <select id="restaurant_id" name="id">
+    <% if(typeof restaurants != "undefined" && restaurants.length > 0){ %>
+      <% restaurants.forEach(function(restaurant){ %>
+        <option value="<%= restaurant.id %>">
+          <%= restaurant.restaurantName %>
         </option>
       <% }) %>
     <% } %>
@@ -21,48 +21,48 @@
   </div>
 </form>
 
-<h2>Update Student</h2>
-<form action="/update" method="POST" class="form-horizontal" id="updateStudentForm">
-  <input type="hidden" name="student_id" id="student_id" value="">
+<h2>Update Restaurant</h2>
+<form action="/update" method="POST" class="form-horizontal" id="updateRestaurantForm">
+  <input type="hidden" name="id" id="restaurant_id" value="">
   <div class="form-group">
-    <label for="first_name" class="col-sm-2 control-label">First Name</label>
+    <label for="restaurant_name" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
+      <input type="text" class="form-control" id="restaurant_name" name="restaurantName" placeholder="Bob's Burger House" required>
     </div>
   </div>
   <div class="form-group">
-    <label for="last_name" class="col-sm-2 control-label">Last Name</label>
+    <label for="cuisine" class="col-sm-2 control-label">Cuisine</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="last_name" name="last_name"  placeholder="Last Name" required>
+      <input type="text" class="form-control" id="cuisine" name="cuisine"  placeholder="American" required>
     </div>
   </div>
   <div class="form-group">
-    <label for="start_date" class="col-sm-2 control-label">Start Date</label>
+    <label for="price_rating" class="col-sm-2 control-label">Price Rating</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="start_date" name="start_date" placeholder="2017-01-01" required>
+      <input type="number" class="form-control" id="expensive_rating" name="expensiveRating" placeholder="1-5" required>
     </div>
   </div>
   <div class="form-group">
-    <label for="gpa" class="col-sm-2 control-label">GPA</label>
+    <label for="location" class="col-sm-2 control-label">Location</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="gpa" name="gpa" placeholder="4.0">
+      <input type="text" class="form-control" id="location_neighborhood" name="locationNeighborhood" placeholder="Fremont">
     </div>
   </div>
   <div class="form-group">
-    <label for="sat" class="col-sm-2 control-label">SAT Score</label>
+    <label for="proximity_home" class="col-sm-2 control-label">Close to home?</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="sat" name="sat" placeholder="1400">
+      <input type="text" class="form-control" id="close_home" name="closeToHome" placeholder="true">
     </div>
   </div>
   <div class="form-group">
-    <label for="major_id" class="col-sm-2 control-label">Major ID</label>
+    <label for="website" class="col-sm-2 control-label">Link</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="major_id" name="major_id">
+      <input type="url" class="form-control" id="website" name="website" placeholder="http://bobs.com">
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Update Student</button>
+      <button type="submit" class="btn btn-default">Update Restaurant</button>
     </div>
   </div>
 </form>

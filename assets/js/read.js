@@ -34,8 +34,7 @@
 
    $(function(){
 
-     $(document).ready( function () {
-      $('#studentTable').DataTable({
+      $('#restaurantTable').DataTable({
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
@@ -44,7 +43,6 @@
         "scrollX": true
 
       });
-      } );
 
     //code goes here
 
